@@ -25,9 +25,10 @@ function get_Input(table_id){
     return table_value;
   }
   
-  function generate_Table(){
+  function generate_Table(id){
     //Remove old table to generate a new one
-    var div = document.getElementById('mult-table');
+    // var div = document.getElementById('mult-table');
+    var div = document.getElementById(id);
     while(div.firstChild){
       div.removeChild(div.firstChild);
     }
@@ -39,11 +40,11 @@ function get_Input(table_id){
   
       var form = $("#myForm");
       if (form.valid() == true) {
-        addTable(min_column, max_column, min_row, max_row);
+        addTable(min_column, max_column, min_row, max_row, div);
       }
   }
   
-  function addTable(min_column, max_column, min_row, max_row) {
+  function addTable(min_column, max_column, min_row, max_row, id) {
       var dummy = min_column;
       var dummy2 = min_row;
       var r = min_row - 1;
@@ -78,7 +79,8 @@ function get_Input(table_id){
       }  
   
       // Generate table using HTML 
-      var myTableDiv = document.getElementById("mult-table");
+      // var myTableDiv = document.getElementById("mult-table");
+      var myTableDiv = id;
       var tableBody = document.createElement('table');
     
       for (var i = 0; i < row_length; i++) {
@@ -348,7 +350,7 @@ function get_Input(table_id){
 
 
         $(f1).val(ui.value);
-;        generate_Table();
+;        generate_Table("mult-table");
       }
     });
     var initialValue = $(formSlider).slider("option", "value");
@@ -383,21 +385,20 @@ function get_Input(table_id){
   $("#tabs").tabs();
 
 
-  // var tabCounter = 1;
-  // function addTab() {
-  //   var col_min = get_Input("table_min_column field1");
-  //   var col_max = get_Input("table_max_column field2");
-  //   var row_min = get_Input("table_min_row field3");
-  //   var row_max = get_Input("table_max_row field4");
-  //   var label = col_min + " to " + col_max + " By " + row_min + " to " + row_max;
-  //   var id = "tabs-" + tabCounter++;
-  //   var li = $( tabTemplate.replace( /#\{href\}/g, "#" + id ).replace( /#\{label\}/g, label ) ),
-  //   var tabContentHTML = generate
-  //   console.log("Counter is " + tabCounter++);
-  //   console.log(label);
+  var tabCounter = 1;
 
-  // }
-
+  function addTab() {
+    var col_min = get_Input("table_min_column field1");
+    var col_max = get_Input("table_max_column field2");
+    var row_min = get_Input("table_min_row field3");
+    var row_max = get_Input("table_max_row field4");
+    var label = col_min + " to " + col_max + " By " + row_min + " to " + row_max;
+    var id = "tabs-" + tabCounter++;
+    var li = $( tabTemplate.replace( /#\{href\}/g, "#" + id ).replace( /#\{label\}/g, label ) )
+    var tabContentHTML = 5;
+    console.log("Counter is " + tabCounter++);
+    console.log(label);
+  }
 
 
   

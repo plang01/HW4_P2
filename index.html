@@ -39,58 +39,58 @@
                 <div class="form-group">
                     <label for="table_min_column field1" class="col-sm-4">Minimum Column Value</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" id="table_min_column field1" name="field1" placeholder="Minimum Columns" onblur="generate_Table()">
+                        <input type="text" class="form-control" id="table_min_column field1" name="field1" placeholder="Minimum Columns" onblur="generate_Table('mult-table')">
                     </div> 
                     <!-- Minimum Column Slider -->
-                    <div id="col_min_slider" class="col-sm-3" onchange="generate_Table()"></div>
+                    <div id="col_min_slider" class="col-sm-3" onchange="generate_Table('mult-table')"></div>
                 </div>
 
                 <!-- Max-Column Input -->
                 <div class="form-group">
                     <label for="table_max_column field2" class="col-sm-4">Maximum Column Value</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" id="table_max_column field2" name="field2" placeholder="Maximum Columns" onblur="generate_Table()">
+                        <input type="text" class="form-control" id="table_max_column field2" name="field2" placeholder="Maximum Columns" onblur="generate_Table('mult-table')">
                     </div> 
                     <!-- Maximum Column Slider -->
-                    <div id="col_max_slider" class="col-sm-3" onchange="generate_Table()"></div>
+                    <div id="col_max_slider" class="col-sm-3" onchange="generate_Table('mult-table')"></div>
                 </div>
 
                 <!-- Min-Row Input -->
                 <div class="form-group">
                     <label for="table_min_row field3" class="col-sm-4">Minimum Row Value</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" id="table_min_row field3" name="field3" placeholder="Minimum Rows" onblur="generate_Table()">
+                        <input type="text" class="form-control" id="table_min_row field3" name="field3" placeholder="Minimum Rows" onblur="generate_Table('mult-table')">
                     </div> 
                     <!-- Minimum Row Slider -->
-                    <div id="row_min_slider" class="col-sm-3" onchange="generate_Table()"></div>
+                    <div id="row_min_slider" class="col-sm-3" onchange="generate_Table('mult-table')"></div>
                 </div>
                 <!-- Max-Row Input -->
                 <div class="form-group">
                     <label for="table_max_row field4" class="col-sm-4">Maximum Row Value</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" id="table_max_row field4" name="field4" placeholder="Maximum Rows" onblur="generate_Table()">
+                        <input type="text" class="form-control" id="table_max_row field4" name="field4" placeholder="Maximum Rows" onblur="generate_Table('mult-table')">
                     </div> 
                     <!-- Maximum Row Slider -->
-                    <div id="row_max_slider" class="col-sm-3" onchange="generate_Table()"></div>
+                    <div id="row_max_slider" class="col-sm-3" onchange="generate_Table('mult-table')"></div>
                 </div>
 
                 <!-- Button once click will call generate_Table function -->
                 <!-- <button type="button" onclick="generate_Table()" class="btn btn-sm col-sm-offset-5 active">Generate Table</button> -->
-                <button type="button"  onclick="addTab()" class="btn btn-sm col-sm-offset-5 active">Generate Table</button>
+                <button type="button"  onclick="generate_Table('tabs-1')" class="btn btn-sm col-sm-offset-5 active">Generate Table</button>
             </form>
         </div>
         
         <div class="col-sm-12">
-            <div id="mult-table"></div>
+            <div id="mult-table" class="mult"></div>
         </div>
 
         <div id="tabs" class="col-sm-12">
             <ul>
                 <li><a href="#tabs-1">Nunc tincidunt</a></li>
+                <li><a href="#tabs-2"> Nice</a></li>
             </ul>
-            <div id="tabs-1">
-                <div id="mult-table"></div>
-            </div>
+            <div id="tabs-1"></div>
+            <div id="tabs-2"></div>
         </div>
 
     </div>
