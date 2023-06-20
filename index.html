@@ -17,9 +17,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+   
     <!-- <link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css"> -->
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.js"></script> -->
+    
     <title>Multiplication Table</title>
 </head>
 <body>
@@ -34,56 +38,69 @@
                 <!-- Min-Column Input -->
                 <div class="form-group">
                     <label for="table_min_column field1" class="col-sm-4">Minimum Column Value</label>
-                    <div class="col-sm-5">
-                        <input type="text" class="form-control" id="table_min_column field1" name="field1" placeholder="Minimum Columns">
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="table_min_column field1" name="field1" placeholder="Minimum Columns" onblur="generate_Table()">
                     </div> 
-                    <!-- Error Message -->
-                    <!-- <div id="col_min_message" class="col-sm-3"></div> -->
+                    <!-- Minimum Column Slider -->
+                    <div id="col_min_slider" class="col-sm-3" onchange="generate_Table()"></div>
                 </div>
 
                 <!-- Max-Column Input -->
                 <div class="form-group">
                     <label for="table_max_column field2" class="col-sm-4">Maximum Column Value</label>
-                    <div class="col-sm-5">
-                        <input type="text" class="form-control" id="table_max_column field2" name="field2" placeholder="Maximum Columns">
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="table_max_column field2" name="field2" placeholder="Maximum Columns" onblur="generate_Table()">
                     </div> 
-                    <!-- Error Message -->
-                    <!-- <div id="col_max_message" class="col-sm-3"></div> -->
+                    <!-- Maximum Column Slider -->
+                    <div id="col_max_slider" class="col-sm-3" onchange="generate_Table()"></div>
                 </div>
 
                 <!-- Min-Row Input -->
                 <div class="form-group">
                     <label for="table_min_row field3" class="col-sm-4">Minimum Row Value</label>
-                    <div class="col-sm-5">
-                        <input type="text" class="form-control" id="table_min_row field3" name="field3" placeholder="Minimum Rows">
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="table_min_row field3" name="field3" placeholder="Minimum Rows" onblur="generate_Table()">
                     </div> 
-                    <!-- Error Message -->
-                    <!-- <div id="row_min_message" class="col-sm-3"></div> -->
+                    <!-- Minimum Row Slider -->
+                    <div id="row_min_slider" class="col-sm-3" onchange="generate_Table()"></div>
                 </div>
-
                 <!-- Max-Row Input -->
                 <div class="form-group">
                     <label for="table_max_row field4" class="col-sm-4">Maximum Row Value</label>
-                    <div class="col-sm-5">
-                        <input type="text" class="form-control" id="table_max_row field4" name="field4" placeholder="Maximum Rows">
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="table_max_row field4" name="field4" placeholder="Maximum Rows" onblur="generate_Table()">
                     </div> 
-                    <!-- Error Message -->
-                    <!-- <div id="row_max_message" class="col-sm-3"></div> -->
+                    <!-- Maximum Row Slider -->
+                    <div id="row_max_slider" class="col-sm-3" onchange="generate_Table()"></div>
                 </div>
 
                 <!-- Button once click will call generate_Table function -->
                 <!-- <button type="button" onclick="generate_Table()" class="btn btn-sm col-sm-offset-5 active">Generate Table</button> -->
-                <button type="button"  onclick="generate_Table()" class="btn btn-sm col-sm-offset-5 active">Generate Table</button>
+                <button type="button"  onclick="addTab()" class="btn btn-sm col-sm-offset-5 active">Generate Table</button>
             </form>
         </div>
         
         <div class="col-sm-12">
             <div id="mult-table"></div>
         </div>
+
+        <div id="tabs" class="col-sm-12">
+            <ul>
+                <li><a href="#tabs-1">Nunc tincidunt</a></li>
+            </ul>
+            <div id="tabs-1">
+                <div id="mult-table"></div>
+            </div>
+        </div>
+
     </div>
+
+    <!-- <div id="slider"></div><br/> -->
+    <!-- <input id="slidervalue field10" type="text"> (min: 10, max: 90) -->
 
 
     <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
     <script src="javascript/script.js"></script>

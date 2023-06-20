@@ -15,6 +15,7 @@
 
 // https://www.javascript-coder.com/form-validation/jquery-form-validation-guide/
 // https://jqueryvalidation.org/
+// https://infoheap.com/jquery-ui-slider-and-input-text-box-two-way-binding/
 
 function get_Input(table_id){
     var table_value;
@@ -239,22 +240,22 @@ function get_Input(table_id){
         field1: {
           required: true,
           integer: true,
-          min:-1e15,
-          max: 1e15
+          min:-200,
+          max: 200
         },
         field2: {
           required: true,
-          integer: true,
+          integer: true
         },
         field3: {
           required: true,
           integer: true,
-          min: -1e15,
-          max: 1e15
+          min: -200,
+          max: 200
         },
         field4: {
           required: true,
-          integer: true,
+          integer: true
         }
       }
     });
@@ -263,17 +264,142 @@ function get_Input(table_id){
     {
       var $input = $("[name=field2]");
       var value = get_Input("table_min_column field1")
-      $input.rules("add", {min:value});
-      $input.rules("add", {max:value + 200});
+      if(!(isNaN(value))){
+        $input.rules("add", {min:value});
+        $input.rules("add", {max:value + 200});
+      }
     });
   
     $('[name=field3]').change(function()
     {
       var $input = $("[name=field4]");
       var value = get_Input("table_min_row field3")
-      $input.rules("add", {min:value});
-      $input.rules("add", {max:value + 200});
+      if(!(isNaN(value))){
+        $input.rules("add", {min:value});
+        $input.rules("add", {max:value + 200});
+      }
     });
+
+    $('[name=field2]').change(function()
+    {
+      var $input = $("[name=field1]");
+      var value = get_Input("table_max_column field2")
+      if(!(isNaN(value))){
+        $input.rules("add", {min:value-200});
+        $input.rules("add", {max:value});
+      }
+    });
+
+    $('[name=field4]').change(function()
+    {
+      var $input = $("[name=field3]");
+      var value = get_Input("table_max_row field4")
+      if(!(isNaN(value))){
+        $input.rules("add", {min:value-200});
+        $input.rules("add", {max:value});
+      }
+    });
+
+
+    // $(function t(formId, formSlider) {
+    function t(formId,formSlider, formName, t){
+    // var f1 = document.getElementById("table_min_column field1")
+    // $("#col_min_slider").slider({
+    //   min: -200, 
+    //   max: 200, 
+    //   step: 1,
+    //   value: 0,
+    //   slide: function( event, ui ) {
+    //     $(f1).val(ui.value);
+    //     generate_Table();
+    //   }
+    // });
+    // var initialValue = $("#col_min_slider").slider("option", "value");
+    // $(f1).val(initialValue);
+    // $(f1).change(function() {
+    //   var oldVal = $("#col_min_slider").slider("option", "value");
+    //   var newVal = $(this).val();
+    //     $("#col_min_slider").slider("option", "value", newVal);
+    // });
+
+    // var f1 = document.getElementById(formId)
+    var f1 = formId;
+    $(formSlider).slider({
+      min: -200, 
+      max: 200, 
+      step: 1,
+      value: 0,
+      slide: function( event, ui ) {
+      var $input = $(formName);
+      var value = ui.value;
+
+      var $s = $(t);
+      var $s2 = document.getElementsByName("field4");
+      if(!(isNaN(value))){
+        if(formName === t){
+          $input.rules("add", {min:value});
+          $input.rules("add", {max:value + 200});
+        }
+        else {
+          $input.rules("add", {min:value-200});
+          $input.rules("add", {max:value});
+        }
+      }
+
+
+        $(f1).val(ui.value);
+;        generate_Table();
+      }
+    });
+    var initialValue = $(formSlider).slider("option", "value");
+    $(f1).val(initialValue);
+    $(f1).change(function() {
+      var newVal = $(this).val();
+        $(formSlider).slider("option", "value", newVal);
+    }); 
+  };
+
+  
+  $(function(){
+  var d = document.getElementById("table_min_column field1");
+  var s = document.getElementById("col_min_slider");
+  var d2 = document.getElementById("table_max_column field2");
+  var s2 = document.getElementById("col_max_slider");
+  var d3 = document.getElementById("table_min_row field3");
+  var s3 = document.getElementById("row_min_slider");
+  var d4 = document.getElementById("table_max_row field4");
+  var s4 = document.getElementById("row_max_slider");
+
+  var n2 = document.getElementsByName("field2");
+  var n1 = document.getElementsByName("field1");
+  var n3 = document.getElementsByName("field3");
+  var n4 = document.getElementsByName("field4");
+  t(d,s, n2, n2);
+  t(d2,s2, n1, n3);
+  t(d3,s3, n4, n4);
+  t(d4,s4, n3, n2);
+  });
+
+  $("#tabs").tabs();
+
+
+  // var tabCounter = 1;
+  // function addTab() {
+  //   var col_min = get_Input("table_min_column field1");
+  //   var col_max = get_Input("table_max_column field2");
+  //   var row_min = get_Input("table_min_row field3");
+  //   var row_max = get_Input("table_max_row field4");
+  //   var label = col_min + " to " + col_max + " By " + row_min + " to " + row_max;
+  //   var id = "tabs-" + tabCounter++;
+  //   var li = $( tabTemplate.replace( /#\{href\}/g, "#" + id ).replace( /#\{label\}/g, label ) ),
+  //   var tabContentHTML = generate
+  //   console.log("Counter is " + tabCounter++);
+  //   console.log(label);
+
+  // }
+
+
+
   
   
   
