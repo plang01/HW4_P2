@@ -33,6 +33,7 @@ function get_Input(table_id){
       var min_row = get_Input('table_min_row field3');
       var max_row = get_Input('table_max_row field4');
       var form = $("#myForm");
+      // Inputs should pass validation test before generating table
       if (form.valid() == true) {
         addTable(min_column, max_column, min_row, max_row, div);
       }
