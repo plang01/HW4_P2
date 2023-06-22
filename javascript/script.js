@@ -1,21 +1,17 @@
 /*
     File: script.js
-    GUI Assignment: Creating an Interactive Dynamic Multiplication Table
+    GUI Assignment: Use Jquery plugin to add tab and slider widget
     Phat Lang, UMass Lowell Computer Science, Phat_Lang@student.uml.edu
     What to submit: Readme file with Github URL and link to repository, a zip file contains the code 
-    Description: Create a program to generate multiplication table uitlizing HTML and should based on user inputs. In addition, the program 
-    should handle all unexpected input and provide feedback.
+    Description: Add slider and tab using jQuery UI plugin. The slider is responsive to the input field and vice versa.
+    Additionally, implement a feature to delete multiple tabs selected. 
     Copyright (c) 2023 by Phat Lang. All rights reserved. May be freely copied or
-    excerpted for educational purposes with credit to the author. Updated by Phat Lang on June 11 at 1:44 p.m
-    References/Citations: I used W3Schools, Mozilla for references. 
+    excerpted for educational purposes with credit to the author. Updated by Phat Lang on June 22 at 12:33 p.m
+    References/Citations: I used jQueryUI for references. 
     Additionally, I took some of the codes from these website
-       https://stackoverflow.com/questions/3450593/how-do-i-clear-the-content-of-a-div-using-javascript
-       https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions/Assertions
+      https://jqueryvalidation.org/
+      https://infoheap.com/jquery-ui-slider-and-input-text-box-two-way-binding/
 */
-
-// https://www.javascript-coder.com/form-validation/jquery-form-validation-guide/
-// https://jqueryvalidation.org/
-// https://infoheap.com/jquery-ui-slider-and-input-text-box-two-way-binding/
 
 function get_Input(table_id){
     var table_value;
@@ -27,9 +23,8 @@ function get_Input(table_id){
   
   function generate_Table(id){
     //Remove old table to generate a new one
-    // var div = document.getElementById('mult-table');
     var div = document.getElementById(id);
-    while(div.firstChild){
+    while(div.firstChild != null){
       div.removeChild(div.firstChild);
     }
       // Get user inputs
@@ -37,7 +32,6 @@ function get_Input(table_id){
       var max_column = get_Input('table_max_column field2');
       var min_row = get_Input('table_min_row field3');
       var max_row = get_Input('table_max_row field4');
-  
       var form = $("#myForm");
       if (form.valid() == true) {
         addTable(min_column, max_column, min_row, max_row, div);
@@ -79,7 +73,6 @@ function get_Input(table_id){
       }  
   
       // Generate table using HTML 
-      // var myTableDiv = document.getElementById("mult-table");
       var myTableDiv = id;
       var tableBody = document.createElement('table');
     
@@ -96,127 +89,6 @@ function get_Input(table_id){
       myTableDiv.appendChild(tableBody);
     }
   
-    function validateForm() {
-      // Get error message HTML block
-      var col_min = document.getElementById("col_min_message");
-      var col_max = document.getElementById("col_max_message");
-      var row_min = document.getElementById("row_min_message");
-      var row_max = document.getElementById("row_max_message");
-      // Error Message
-      var message = "No Blank Input";
-      var message2 = "Must Be Whole Number";
-      var message3 = "Min Value > Max Value";
-      var message4 = "Min to Max Cannot Exceed 200";
-      var message5 = "Value must be bewteen -1e+15 to 1e+15";
-      // Get value 
-      var c_min = get_Input('table_min_column');
-      var c_max = get_Input('table_max_column');
-      var r_min = get_Input('table_min_row');
-      var r_max = get_Input('table_max_row');
-      // If conditions not met, set status to false and output error message
-      var status = true;
-  
-      // Repeat error message if conditions not met
-      while(col_min.firstChild){
-        col_min.removeChild(col_min.firstChild);
-      }
-      while(col_max.firstChild){
-        col_max.removeChild(col_max.firstChild);
-      }
-      while(row_min.firstChild){
-        row_min.removeChild(row_min.firstChild);
-      }
-      while(row_max.firstChild){
-        row_max.removeChild(row_max.firstChild);
-      }
-  
-      // Min_Column Validation
-      if (c_min == "" && c_min != 0) {
-        col_min.textContent += message;
-        status = false;
-      }
-      // Input needs to be number, allows +/- sign in the front 
-      else if (!(/^[+-]?\d+$/.test(c_min))){
-        col_min.textContent += message2;
-        status = false;
-      }
-      // Min value cannot be greater than max
-      else if (c_min > c_max){
-        col_min.textContent += message3;
-        status = false;
-      }
-      // Value need to be between -1e15 < x < 1e15
-      else if ( c_min < (-1e15) || c_min > (1e15)){
-        col_min.textContent += message5;
-        status = false;
-      }
-  
-      // Max_Column Validation
-      if (c_max == "" && c_max != 0){
-        col_max.textContent += message;
-        status = false;
-      }
-      // Input needs to be number, allows +/- sign in the front 
-      else if (!(/^[+-]?\d+$/.test(c_max))){
-        col_max.textContent += message2;
-        status = false;
-      }
-      //Range cannot exceed 200
-      else if (findLength(c_min, c_max) > 202) {
-        col_max.textContent += message4;
-        status = false;
-      }
-      // Value need to be between -1e15 < x < 1e15
-      else if ( c_max < (-1e15) || c_max > (1e15)){
-        col_max.textContent += message5;
-        status = false;
-      }
-  
-      // Min_Row Validation
-      if (r_min == "" && r_min != 0){
-        row_min.textContent += message;
-        status = false;
-      }
-      // Input needs to be number, allows +/- sign in the front 
-      else if (!(/^[+-]?\d+$/.test(r_min))){
-        row_min.textContent += message2;
-        status = false;
-      }
-      // Min value cannot be greater than max
-      else if (r_min > r_max){
-        row_min.textContent += message3;
-        status = false;
-      }
-      // Value need to be between -1e15 < x < 1e15
-      else if ( r_min < (-1e15) || r_min > (1e15)){
-        row_min.textContent += message5;
-        status = false;
-      }
-  
-      // Max_Row Validation
-      if (r_max == "" && r_max != 0){
-        row_max.textContent += message;
-        status = false;
-      }
-      // Input needs to be number, allows +/- sign in the front 
-      else if (!(/^[+-]?\d+$/.test(r_max))){
-        row_max.textContent += message2;
-        status = false;
-      }
-      // Range cannot exceed 200
-      else if (findLength(r_min, r_max) > 202){
-        row_max.textContent += message4;
-        status = false;
-      }
-      // Value need to be between -1e15 < x < 1e15
-      else if ( r_max < (-1e15) || r_max > (1e15)){
-        row_max.textContent += message5;
-        status = false;
-      }
-  
-      return status;
-    }
-  
     // Find the length given two numbers
     function findLength(val1, val2){
       if (val1 < 0 && val2 > 0){
@@ -227,16 +99,12 @@ function get_Input(table_id){
       }
     }
   
+    // Custom Validation Method to check for integer input
     jQuery.validator.addMethod("integer", function(value, element){
       return this.optional(element) || /^[+-]?\d+$/.test(value);
     }, "Please Enter Whole Integer");
   
-    // just for the demos, avoids form submit
-    // jQuery.validator.setDefaults({
-    //   debug: true,
-    //   success: "valid"
-    // });
-  
+    // jQuery validate function
     $( "#myForm" ).validate({
       rules: {
         field1: {
@@ -262,6 +130,7 @@ function get_Input(table_id){
       }
     });
   
+    // Change the Min and Max rules based on what user input for Min and Max value
     $('[name=field1]').change(function()
     {
       var $input = $("[name=field2]");
@@ -302,57 +171,38 @@ function get_Input(table_id){
       }
     });
 
-
-    // $(function t(formId, formSlider) {
-    function t(formId,formSlider, formName, t){
-    // var f1 = document.getElementById("table_min_column field1")
-    // $("#col_min_slider").slider({
-    //   min: -200, 
-    //   max: 200, 
-    //   step: 1,
-    //   value: 0,
-    //   slide: function( event, ui ) {
-    //     $(f1).val(ui.value);
-    //     generate_Table();
-    //   }
-    // });
-    // var initialValue = $("#col_min_slider").slider("option", "value");
-    // $(f1).val(initialValue);
-    // $(f1).change(function() {
-    //   var oldVal = $("#col_min_slider").slider("option", "value");
-    //   var newVal = $(this).val();
-    //     $("#col_min_slider").slider("option", "value", newVal);
-    // });
-
-    // var f1 = document.getElementById(formId)
-    var f1 = formId;
-    $(formSlider).slider({
-      min: -200, 
-      max: 200, 
-      step: 1,
-      value: 0,
-      slide: function( event, ui ) {
-      var $input = $(formName);
-      var value = ui.value;
-
-      var $s = $(t);
-      var $s2 = document.getElementsByName("field4");
-      if(!(isNaN(value))){
-        if(formName === t){
-          $input.rules("add", {min:value});
-          $input.rules("add", {max:value + 200});
+    // Create a slider with two-way binding feature
+    function createSlider(formId,formSlider, formName, t){
+      var f1 = formId;
+      // jQuery plug in function
+      $(formSlider).slider({
+        min: -200, 
+        max: 200, 
+        step: 1,
+        value: 0,
+        // Two-way binding implementation
+        slide: function( event, ui ) {
+        var $input = $(formName);
+        var value = ui.value;
+        // Change Validation Min, Max Rule for slider
+        if(!(isNaN(value))){
+          if(formName === t){
+            $input.rules("add", {min:value});
+            $input.rules("add", {max:value + 200});
+          }
+          else {
+            $input.rules("add", {min:value-200});
+            $input.rules("add", {max:value});
+          }
         }
-        else {
-          $input.rules("add", {min:value-200});
-          $input.rules("add", {max:value});
+          // Input field change based on slider
+          $(f1).val(ui.value);
+          // Dynamically create mult-table based on slider
+          generate_Table("mult-table");
         }
-      }
-
-
-        $(f1).val(ui.value);
-;        generate_Table("mult-table");
-      }
     });
+    
+    // Slider change based on input field
     var initialValue = $(formSlider).slider("option", "value");
     $(f1).val(initialValue);
     $(f1).change(function() {
@@ -372,32 +222,67 @@ function get_Input(table_id){
   var d4 = document.getElementById("table_max_row field4");
   var s4 = document.getElementById("row_max_slider");
 
-  var n2 = document.getElementsByName("field2");
   var n1 = document.getElementsByName("field1");
+  var n2 = document.getElementsByName("field2");
   var n3 = document.getElementsByName("field3");
   var n4 = document.getElementsByName("field4");
-  t(d,s, n2, n2);
-  t(d2,s2, n1, n3);
-  t(d3,s3, n4, n4);
-  t(d4,s4, n3, n2);
+  
+  // Call createSlider function for each input form
+  createSlider(d,s, n2, n2);
+  createSlider(d2,s2, n1, n3);
+  createSlider(d3,s3, n4, n4);
+  createSlider(d4,s4, n3, n2);
   });
 
-  $("#tabs").tabs();
-
-
+  // Global variables
+  var tabs = $( "#tabs" ).tabs();
   var tabCounter = 1;
-
+  var value = 1;
+  var tabTemplate = "<li> <span class='ui-icon ui-icon-close'></span> <a href='#{href}'>#{label}</a> <label><input type='checkbox' class='choice' value=#{val}></label> </li>"
+  var index = 0
+  // Create a new tab that stored multiplication table
   function addTab() {
     var col_min = get_Input("table_min_column field1");
     var col_max = get_Input("table_max_column field2");
     var row_min = get_Input("table_min_row field3");
     var row_max = get_Input("table_max_row field4");
     var label = col_min + " to " + col_max + " By " + row_min + " to " + row_max;
-    var id = "tabs-" + tabCounter++;
-    var li = $( tabTemplate.replace( /#\{href\}/g, "#" + id ).replace( /#\{label\}/g, label ) )
-    var tabContentHTML = 5;
-    console.log("Counter is " + tabCounter++);
-    console.log(label);
+    var id = "tabs-" + tabCounter;
+    var li = $(tabTemplate.replace( /#\{href\}/g, "#" + id ).replace( /#\{label\}/g, label ).replace( /#\{val}/g, value) )
+    tabs.find( ".ui-tabs-nav" ).append( li );
+    tabs.append( "<div id='" + id + "'></div>" );
+    tabs.tabs("refresh");
+    tabCounter++;
+    value++;
+    generate_Table(id);
+  }
+
+  // When click on close icon, tab will close
+  tabs.on( "click", "span.ui-icon-close", function() {
+    var panelId = $( this ).closest( "li" ).remove().attr( "aria-controls" );
+    $( "#" + panelId ).remove();
+    tabs.tabs( "refresh" );
+  });
+
+  // Closed tab that has been selected 
+  function deleteTab() {
+    var form = $(".choice:checked");
+    var form_val;
+    for (var i = 0; i < form.length; i++) {
+      form_val = form[i].value;
+      $(".choice:checked").closest("li").remove().attr("aria-controls");
+      $("#tabs-" + form_val).remove();
+    }
+    tabs.tabs("refresh");
+  }
+
+  // Default table and tab will be create
+  window.onload = function(){
+    generate_Table("mult-table");
+    addTab();
+    $( "#tabs" ).tabs({
+      active:0
+    })
   }
 
 

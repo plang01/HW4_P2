@@ -1,11 +1,11 @@
 /*
     File: style.css
-    GUI Assignment: Creating an Interactive Dynamic Multiplication Table
+    GUI Assignment: Use Jquery plugin to add tab and slider widget
     Phat Lang, UMass Lowell Computer Science, Phat_Lang@student.uml.edu
     What to submit: Readme file with Github URL and link to repository, a zip file contains the code 
-    Description: Style the website to look nice, create a dynamic table
+    Description: Modify existing codes to style slider and tab page
     Copyright (c) 2023 by Phat Lang. All rights reserved. May be freely copied or
-    excerpted for educational purposes with credit to the author. Updated by Phat Lang on June 11 at 1:44 p.m
+    excerpted for educational purposes with credit to the author. Updated by Phat Lang on June 22 at 12:27 p.m
     References/Citations: I used W3Schools, Mozilla for references.  
 */
 
@@ -21,11 +21,12 @@
 /* Title */
 .container h1{
     text-align: center;
-
+    font-size:x-large;
 }
 
 label{
     font-size:13px;
+    text-align:right;
 }
 
 /* Style the form */
@@ -34,10 +35,6 @@ label{
     border-style:ridge;
     border-radius: 10px;
     padding:10px;
-}
-
-button{
-    background:cyan;
 }
 
 /* Create a dynamic table */
@@ -95,6 +92,35 @@ tr:first-child th:first-child{
     margin-top:10px;
 }
 
+/* Button */
+button, .deleteButton:hover, .saveButton:hover{
+    background:#49592a;
+    color:white;
+    padding:5px 10px 5px 10px;
+}
+
+/* Tab */
 #tabs{
+    width:100%;
+    height:45vh;
     margin-top:20px;
+    overflow-y:scroll;
+    overflow-x:scroll;
+    background:#c3d4a5;
+    border-radius:10px;
+    border:solid;
+}
+
+/* Alternating color for tab */
+#tabs ul li:nth-child(2n){
+    background:#d3e4a4;
+}
+
+#tabs ul li:nth-child(2n+1) {
+    background:#84a463;
+}
+
+/* Remove the outline upon click on for tab */
+a:focus{
+    outline:0;
 }
