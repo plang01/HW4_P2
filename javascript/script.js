@@ -9,7 +9,7 @@
     excerpted for educational purposes with credit to the author. Updated by Phat Lang on June 22 at 12:33 p.m
     References/Citations: I used jQueryUI for references. 
     Additionally, I took some of the codes from these website
-      https://jqueryvalidation.org/
+      https://jqueryui.com/tabs/#manipulation
       https://infoheap.com/jquery-ui-slider-and-input-text-box-two-way-binding/
 */
 
@@ -242,19 +242,22 @@ function get_Input(table_id){
   var index = 0
   // Create a new tab that stored multiplication table
   function addTab() {
-    var col_min = get_Input("table_min_column field1");
-    var col_max = get_Input("table_max_column field2");
-    var row_min = get_Input("table_min_row field3");
-    var row_max = get_Input("table_max_row field4");
-    var label = col_min + " to " + col_max + " By " + row_min + " to " + row_max;
-    var id = "tabs-" + tabCounter;
-    var li = $(tabTemplate.replace( /#\{href\}/g, "#" + id ).replace( /#\{label\}/g, label ).replace( /#\{val}/g, value) )
-    tabs.find( ".ui-tabs-nav" ).append( li );
-    tabs.append( "<div id='" + id + "'></div>" );
-    tabs.tabs("refresh");
-    tabCounter++;
-    value++;
-    generate_Table(id);
+    var form = $("#myForm");
+    if (form.valid() == true) {
+      var col_min = get_Input("table_min_column field1");
+      var col_max = get_Input("table_max_column field2");
+      var row_min = get_Input("table_min_row field3");
+      var row_max = get_Input("table_max_row field4");
+      var label = col_min + " to " + col_max + " By " + row_min + " to " + row_max;
+      var id = "tabs-" + tabCounter;
+      var li = $(tabTemplate.replace( /#\{href\}/g, "#" + id ).replace( /#\{label\}/g, label ).replace( /#\{val}/g, value) )
+      tabs.find( ".ui-tabs-nav" ).append( li );
+      tabs.append( "<div id='" + id + "'></div>" );
+      tabs.tabs("refresh");
+      tabCounter++;
+      value++;
+      generate_Table(id);
+    }
   }
 
   // When click on close icon, tab will close
@@ -268,6 +271,7 @@ function get_Input(table_id){
   function deleteTab() {
     var form = $(".choice:checked");
     var form_val;
+
     for (var i = 0; i < form.length; i++) {
       form_val = form[i].value;
       $(".choice:checked").closest("li").remove().attr("aria-controls");
